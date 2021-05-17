@@ -122,7 +122,8 @@ class BulletWindow(QWidget):
     def is_valid_track(self, track_index, height):
         i = 0
         while i * self.__track_width < height and track_index + i < self.__total_track:
-            if not self.__track_record[track_index + i]["accessible"] and self.__track_record[track_index + i]["away_time"] + self.__track_record[track_index + i]["time"] > time.time():
+            if not self.__track_record[track_index + i]["accessible"] and self.__track_record[track_index + i][
+                "away_time"] + self.__track_record[track_index + i]["time"] > time.time():
                 return False
             i = i + 1
         return True

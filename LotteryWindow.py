@@ -27,7 +27,7 @@ class Lottery(QLabel):
         self.setFixedWidth(self.width)
         self.setFont(self.font)
         self.setAlignment(Qt.AlignCenter)
-        self.setStyleSheet("color:" + self.color.name() )
+        self.setStyleSheet("color:" + self.color.name())
         self.move(parent.width() / 2 - self.width / 2, parent.height() / 4 - self.height / 2)
 
 

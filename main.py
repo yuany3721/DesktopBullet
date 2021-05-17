@@ -20,7 +20,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     mainWindow = MainWindow()
     mainWindow.show()
-    # mainWindow.bulletWindow.show()
     # 定时将窗口置顶一次
     timer = QTimer()
     timer.timeout.connect(to_top)

@@ -159,37 +159,38 @@ class LotteryWidget(QWidget):
         super(LotteryWidget, self).__init__(parent)
         self.setFixedSize(parent.width(), parent.height())  # 设置窗口大小
         self.parent = parent
-        self.lotteryList = []   # 有抽奖资格的列表
-        self.bakList = []    # 清空备份列表
-        self.showNum = 5    # 抽奖列表显示行数
+        self.lotteryList = []  # 有抽奖资格的列表
+        self.bakList = []  # 清空备份列表
+        self.showNum = 5  # 抽奖列表显示行数
         self.showFont = "Consolas"  # 抽奖列表字体
         self.showPointSize = 25  # 抽奖列表字体大小
         self.showWeight = 20  # 抽奖列表字体粗细
 
         # 抽奖列表
         self.lotteryLabel = QLabel("抽奖资格列表 当前人数：" + str(len(self.lotteryList)), self)
-        self.lotteryLabel.setStyleSheet("font-size:" + str(self.showPointSize-5) + "px;font-family:" + self.showFont + ";")
+        self.lotteryLabel.setStyleSheet(
+            "font-size:" + str(self.showPointSize - 5) + "px;font-family:" + self.showFont + ";")
         self.lotteryMember = QTextEdit(self)
         self.lotteryMember.move(320, 50)
-        fontMetrics = QFontMetrics(QFont(self.showFont, self.showPointSize, self.showWeight))       # 获取单行宽高
+        fontMetrics = QFontMetrics(QFont(self.showFont, self.showPointSize, self.showWeight))  # 获取单行宽高
         self.lotteryMember.setFixedSize(fontMetrics.width("111111111111"), self.showNum * fontMetrics.height() + 5)
         self.lotteryLabel.move(320 + fontMetrics.width("11111111111") / 2 - fontMetrics.width("抽奖资格列表") / 2, 20)
         self.lotteryMember.setFontFamily(self.showFont)
         self.lotteryMember.setFontPointSize(self.showPointSize)
         self.lotteryMember.setFontWeight(self.showWeight)
-        self.lotteryMember.setAlignment(Qt.AlignCenter)     # 文字居中
+        self.lotteryMember.setAlignment(Qt.AlignCenter)  # 文字居中
         self.lotteryMember.setReadOnly(True)
 
         self.lotteryButton = QPushButton("开始", self)
         self.lotteryButton.move(320, 75 + self.lotteryMember.height())
         self.lotteryButton.setFixedSize(100, 50)
         self.lotteryButton.clicked.connect(self.lottery)
-        self.lotteryButton.setEnabled(False)        # 初始禁用
+        self.lotteryButton.setEnabled(False)  # 初始禁用
         self.clearButton = QPushButton("清空", self)
         self.clearButton.move(440, 75 + self.lotteryMember.height())
         self.clearButton.setFixedSize(100, 50)
         self.clearButton.clicked.connect(self.clear_list)
-        self.clearButton.setEnabled(False)        # 初始禁用
+        self.clearButton.setEnabled(False)  # 初始禁用
         self.lotteryWindow = LotteryWindow(self)
         self.lotteryInfoLabel = Lottery(self.lotteryWindow.qw, "")
         self.timer = QTimer()
@@ -242,7 +243,7 @@ class LotteryWidget(QWidget):
         pass
 
     def lottery_info_change(self):
-        text = self.lotteryList[random.randint(0, len(self.lotteryList)-1)]
+        text = self.lotteryList[random.randint(0, len(self.lotteryList) - 1)]
         # print(text)
         self.lotteryInfoLabel.setText(text)
         self.lotteryInfoLabel.repaint()
@@ -272,14 +273,14 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.bulletWidget = BulletWidget(self)     # 弹幕部分
-        self.lotteryWidget = LotteryWidget(self)       # 抽奖部分
-        self.widgets = ["弹幕", "抽奖"]        # widget集合
-        self.isShow = -1      # 显示的widget
+        self.bulletWidget = BulletWidget(self)  # 弹幕部分
+        self.lotteryWidget = LotteryWidget(self)  # 抽奖部分
+        self.widgets = ["弹幕", "抽奖"]  # widget集合
+        self.isShow = -1  # 显示的widget
 
         # 服务器地址
         # self.server = "ws://localhost:8087/connect"  # 本地测试
-        self.server = "ws://yuany3721.top:8087/connect"     # 生产环境
+        self.server = "ws://yuany3721.top:8087/connect"  # 生产环境
         self.beat_interval = 60  # 心跳发送间隔（s）
         self.setWindowTitle("桌面弹幕")  # 窗口名
         self.setWindowIcon(QIcon("favicon.ico"))  # 窗口图标
