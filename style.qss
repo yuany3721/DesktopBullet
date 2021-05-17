@@ -1,0 +1,86 @@
+QSlider {
+	border-color: #bcbcbc;
+}
+QSlider::groove:horizontal {                                
+	border: 1px solid #999999;                             
+	height: 1px;                                           
+	margin: 0px 0;                                         
+	left: 5px; right: 5px; 
+}
+QSlider::handle:horizontal {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, 
+    stop:0.6 #ffffff, stop:0.778409 #439cf3);
+    width: 10px;
+    margin-top: -6px;
+    margin-bottom: -6px;
+    border-radius: 5px;
+}
+Slider::add-page:horizontal{
+	background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #bcbcbc, stop:0.25 #bcbcbc, stop:0.5 #bcbcbc, stop:1 #bcbcbc);
+}
+QSlider::sub-page:horizontal{                               
+	background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #439cf3, stop:0.25 #439cf3, stop:0.5 #439cf3, stop:1 #439cf3);
+}
+
+QPushButton {
+	border-radius: 10px;
+	color: white;
+	background-color: rgb(30,144,255);
+	font-size: 28px;
+}
+QPushButton:hover, QComboBox:hover {
+	border: 2px solid grey;
+}
+QPushButton:!enabled {
+	background-color: rgb(135,206,235);
+}
+QPushButton#connectButton {
+	font-size: 25px;
+}
+
+QComboBox {
+    border-radius: 10px;
+	color: white;
+	background-color: rgb(30,144,255);
+	font-size: 25px;
+    padding-right: 0px;
+}
+QComboBox QAbstractItemView {
+    border-radius: 10px;
+}
+QComboBox QAbstractScrollArea QScrollBar:vertical {
+    width: 5px;
+    background-color: white;
+}
+
+QComboBox QAbstractScrollArea QScrollBar::handle:vertical {
+    border-radius: 10px;
+    background: rgb(30,144,255);
+}
+
+QComboBox QAbstractScrollArea QScrollBar::handle:vertical:hover {
+    background: rgb(135,206,235);
+}
+
+QComboBox::drop-down {
+    border-width: 0px;
+}
+
+QComboBox::down-arrow {
+    image:none;
+    border-width: 0px;
+    width: 1px;
+}
+
+QComboBox QAbstractItemView {
+    border-radius: 10px;
+    selection-background-color: rgb(30,144,255);
+}
+
+QTextEdit {
+    padding: 0px;
+}
+
+QScrollBar {
+    width: 0px;
+}
