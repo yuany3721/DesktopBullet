@@ -328,11 +328,11 @@ class MainWindow(QMainWindow):
         self.switch()
 
         # 切换显示界面
-        self.switchScreen = QPushButton("显示界面切换", self)
+        self.switchScreen = QPushButton("切换显示界面：0", self)
         self.switchScreen.setStyleSheet("font-size:25px")
         self.switchScreen.setObjectName("switchButton")
-        self.switchScreen.move(40, 310)
-        self.switchScreen.setFixedSize(170, 32)
+        self.switchScreen.move(25, 310)
+        self.switchScreen.setFixedSize(200, 32)
         self.switchScreen.clicked.connect(self.switch_screen)
         self.screenIndex = 0
 
@@ -426,6 +426,7 @@ class MainWindow(QMainWindow):
         self.screenIndex = self.screenIndex + 1
         self.bulletWidget.bulletWindow.switch_screen(self.screenIndex % QDesktopWidget().screenCount())
         self.lotteryWidget.lotteryWindow.switch_screen(self.screenIndex % QDesktopWidget().screenCount())
+        self.switchScreen.setText("切换显示界面：" + str(self.screenIndex % QDesktopWidget().screenCount()))
         pass
 
     # 最小化到任务栏
