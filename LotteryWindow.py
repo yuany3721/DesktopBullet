@@ -48,3 +48,10 @@ class LotteryWindow(QWidget):
         win32gui.SetWindowLong(self.winId(), win32con.GWL_EXSTYLE, win32gui.GetWindowLong(self.winId(),
                                                                                           win32con.GWL_EXSTYLE) | win32con.WS_EX_TRANSPARENT | win32con.WS_EX_LAYERED)
         self.show()
+
+    def switch_screen(self, screen_index):
+        self.setGeometry(QDesktopWidget().screenGeometry(screen_index))
+        self.width = QDesktopWidget().screenGeometry(screen_index).width()  # 弹幕宽度
+        self.height = QDesktopWidget().screenGeometry(screen_index).height()  # 屏幕高度
+        self.setFixedSize(self.width, self.height)  # 将窗口最大化
+        self.qw.setFixedSize(self.width, self.height)

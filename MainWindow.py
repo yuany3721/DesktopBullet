@@ -327,6 +327,15 @@ class MainWindow(QMainWindow):
         self.switchButton.clicked.connect(self.switch)
         self.switch()
 
+        # 切换显示界面
+        self.switchScreen = QPushButton("显示界面切换", self)
+        self.switchScreen.setStyleSheet("font-size:25px")
+        self.switchScreen.setObjectName("switchButton")
+        self.switchScreen.move(40, 310)
+        self.switchScreen.setFixedSize(170, 32)
+        self.switchScreen.clicked.connect(self.switch_screen)
+        self.screenIndex = 0
+
         self.show()  # 显示界面
 
         self.bulletSignal.connect(self.handle)  # 信号连接
@@ -411,6 +420,13 @@ class MainWindow(QMainWindow):
         self.bulletWidget.setVisible("弹幕" == self.widgets[self.isShow])
         self.lotteryWidget.setVisible("抽奖" == self.widgets[self.isShow])
         self.lotteryWidget.lotteryInfoLabel.setVisible("抽奖" == self.widgets[self.isShow])
+
+    # 切换屏幕显示
+    def switch_screen(self):
+        self.screenIndex = self.screenIndex + 1
+        self.bulletWidget.bulletWindow.switch_screen(self.screenIndex % QDesktopWidget().screenCount())
+        self.lotteryWidget.lotteryWindow.switch_screen(self.screenIndex % QDesktopWidget().screenCount())
+        pass
 
     # 最小化到任务栏
     def hide_window(self):

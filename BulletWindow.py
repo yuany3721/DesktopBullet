@@ -18,7 +18,7 @@ class Bullet(QLabel):
     color = QColor(255, 255, 255)
     duration = 10  # 秒数
 
-    def __init__(self, parent, text, y_index, is_animation):
+    def __init__(self, parent, screen_index, text, y_index, is_animation):
         super(Bullet, self).__init__(parent)
         if is_animation:
             self.setVisible(False)
@@ -40,7 +40,7 @@ class Bullet(QLabel):
             self.y_index = y_index  # 起始高度
             self.fly = QPropertyAnimation(self, b'pos')  # 弹幕飞行动画
             self.fly.setDuration(self.duration * 1000)
-            self.fly.setStartValue(QtCore.QPoint(QDesktopWidget().screenGeometry().width(), self.y_index))
+            self.fly.setStartValue(QtCore.QPoint(QDesktopWidget().screenGeometry(screen_index).width(), self.y_index))
             self.fly.setEndValue(QtCore.QPoint(0 - self.width, self.y_index))
             self.setVisible(True)
             self.fly.start()
@@ -76,6 +76,7 @@ class BulletWindow(QWidget):
 
     def __init__(self, parent):
         super(BulletWindow, self).__init__(parent)
+        self.screenIndex = 0
         self.width = QDesktopWidget().screenGeometry().width()  # 弹幕宽度
         self.height = QDesktopWidget().screenGeometry().height()  # 屏幕高度
         self.bulletHeight = int(QDesktopWidget().screenGeometry().height() * self.screen_ratio)  # 弹幕高度
@@ -99,7 +100,7 @@ class BulletWindow(QWidget):
         height = self.get_y_index(message)
         if height == -1:
             return
-        Bullet(self.qw, message, height, True)
+        Bullet(self.qw, self.screenIndex, message, height, True)
 
     def get_y_index(self, message):
         fontHeight = QFontMetrics(Bullet.font).height() * 1.05
@@ -122,8 +123,7 @@ class BulletWindow(QWidget):
     def is_valid_track(self, track_index, height):
         i = 0
         while i * self.__track_width < height and track_index + i < self.__total_track:
-            if not self.__track_record[track_index + i]["accessible"] and self.__track_record[track_index + i][
-                "away_time"] + self.__track_record[track_index + i]["time"] > time.time():
+            if not self.__track_record[track_index + i]["accessible"] and self.__track_record[track_index + i]["away_time"] + self.__track_record[track_index + i]["time"] > time.time():
                 return False
             i = i + 1
         return True
@@ -135,3 +135,12 @@ class BulletWindow(QWidget):
             self.__track_record[track_index + i]["time"] = time.time()
             self.__track_record[track_index + i]["away_time"] = away_time
             i = i + 1
+
+    def switch_screen(self, screen_index):
+        self.screenIndex = screen_index
+        self.setGeometry(QDesktopWidget().screenGeometry(screen_index))
+        self.width = QDesktopWidget().screenGeometry(screen_index).width()  # 弹幕宽度
+        self.height = QDesktopWidget().screenGeometry(screen_index).height()  # 屏幕高度
+        self.bulletHeight = int(QDesktopWidget().screenGeometry(screen_index).height() * self.screen_ratio)  # 弹幕高度
+        self.setFixedSize(self.width, self.height)  # 将窗口最大化
+        self.qw.setFixedSize(self.width, self.height)

@@ -5,6 +5,11 @@
 
 Base on PyQt5 for Python
 
+## Functions
+-  **多屏幕支持**，循环切换弹幕显示屏幕
+- 弹幕滚动抽奖
+- 弹幕速度、大小、颜色、粗细、透明度、字体切换
+
 ## Before Usage
 修改 `MainWindow.py` 中 `class MainWindow` 的 `self.server` 为你自己的弹幕服务端WebSocket地址 
 
